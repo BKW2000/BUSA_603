@@ -1,0 +1,12 @@
+[1] "NbClust Best.nc output for k-means"
+                     KL      CH Hartigan     CCC   Scott   
+Number_clusters 11.0000  2.0000   5.0000  2.0000 11.0000    
+Value_Index      8.5497 21.1467   3.1643 -0.1813 46.5009 
+
+                 TraceW Friedman   Rubin Cindex     DB Silhouette   
+Number_clusters  5.0000   4.0000 11.0000   8.00 9.0000     2.0000 
+Value_Index     14.3363  83.9817 -0.2267   0.33 1.1057     0.2667 
+
+                  Beale Ratkowsky   Ball PtBiserial Frey McClain    
+Number_clusters  2.0000    2.0000  3.000     4.0000    1  2.0000 
+Value_Index     -0.5389    0.3801 68.808     0.5459   NA  0.7569  

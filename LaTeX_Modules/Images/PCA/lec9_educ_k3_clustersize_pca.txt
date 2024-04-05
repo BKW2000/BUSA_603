@@ -1,0 +1,2 @@
+[1] "Sample Cluster Sizes"
+[1] 19 20 12

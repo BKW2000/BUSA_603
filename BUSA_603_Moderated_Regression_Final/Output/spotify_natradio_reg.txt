@@ -1,0 +1,22 @@
+Moderator Regression - Spotify, Amazon Music, Apple Music,
+and Pandora and National Radio Adult 18-54 Impressions
+Call:
+lm(formula = velocity ~ x1 + x2 + x1x2, data = df_7)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2970.0 -1302.3  -335.4  1628.9  3799.5 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  3.370e+04  6.848e+02  49.206  < 2e-16 ***
+x1           3.633e+01  1.308e+01   2.777    0.011 *  
+x2           5.916e+01  1.185e+01   4.992 5.38e-05 ***
+x1x2        -6.313e-03  1.494e-01  -0.042    0.967    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1861 on 22 degrees of freedom
+Multiple R-squared:  0.8597,	Adjusted R-squared:  0.8406 
+F-statistic: 44.95 on 3 and 22 DF,  p-value: 1.492e-09
+

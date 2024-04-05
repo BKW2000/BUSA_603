@@ -1,0 +1,20 @@
+Moderator Regression - Spotify, Amazon Music, Apple Music,
+and Pandora and National Radio Adult 18-54 Impressions
+Spotlight is 1 SD BELOW the Mean-Centered Moderator
+Call:
+lm(formula = velocity ~ x1_sdcp1 + x2 + x1_sdcp1_x2, data = df_7)
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4174.9 -1546.3  -152.9  1151.5  4577.3 
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 3.370e+04  8.773e+02  38.419   <2e-16 ***
+x1_sdcp1    2.563e+01  1.231e+01   2.082   0.0492 *  
+x2          4.016e+01  1.569e+01   2.561   0.0178 *  
+x1_sdcp1_x2 2.970e-01  1.442e-01   2.059   0.0515 .  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Residual standard error: 2201 on 22 degrees of freedom
+Multiple R-squared:  0.883,	Adjusted R-squared:  0.8671 
+F-statistic: 55.37 on 3 and 22 DF,  p-value: 2.048e-10
+

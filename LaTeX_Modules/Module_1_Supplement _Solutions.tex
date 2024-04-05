@@ -1,0 +1,610 @@
+\documentclass[pdf]{beamer}
+%\mode<presentation>{}
+
+\usepackage{amssymb,amsmath,amsthm,enumerate,mathtools}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+
+\usepackage[parfill]{parskip}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup[figure]{labelformat=empty}
+\usepackage{subcaption}
+\usepackage{bm}
+\usepackage{amsfonts,amscd}
+%\usepackage{gensymb}
+\usepackage[]{units}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{physics}
+\usepackage{multirow}
+\usepackage{pgfplots,tikz}
+\pgfplotsset{compat=1.7}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=franklinblue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    bookmarks=true,
+    citecolor= black
+    % pdftitle={Overleaf Example},
+    % pdfpagemode=FullScreen,
+    }
+\usepackage{colortbl}
+\usepackage{booktabs}
+\usepackage{gensymb}
+\usepackage{color}
+\usepackage{natbib}
+
+\usepackage{tikz}
+\usepackage{fixltx2e}
+\usepackage[english]{babel}
+\usepackage[absolute,overlay]{textpos}
+%\usepackage{gnuplottex} % For t-distribution using gnuplot.
+%The following function is use in students t distribution. 
+% \def\basefunc{    gamma((\n+1)/2.)/(sqrt(\n*pi)*gamma(\n/2.))*((1+(x*x)/\n)^(-(\n+1)/2.))}    
+% \def\n{7}
+%\usepackage{tkz-fct} % For t-distribution plotting.
+% \usepackage{pst-func} % For t-distribution plotting.
+\usepackage{longtable}
+\usepackage{changepage} 
+
+\usetikzlibrary{shapes,decorations,arrows,calc,arrows.meta,fit,positioning}
+\tikzset{
+    -Latex,auto,node distance =1 cm and 1 cm,semithick,
+    state/.style ={ellipse, draw, minimum width = 0.7 cm},
+    point/.style = {circle, draw, inner sep=0.04cm,fill,node contents={}},
+    bidirected/.style={Latex-Latex,dashed},
+    el/.style = {inner sep=2pt, align=left, sloped}
+}
+
+%Normal Distribution
+\pgfmathdeclarefunction{gauss_}{2}{\pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
+%Gamma Distribution
+\pgfmathdeclarefunction{gammaPDF}{2}{
+\pgfmathparse{1/(#2^#1*gamma(#1))*x^(#1-1)*exp(-x/#2)}
+}
+
+%%%%% For https://tikz.net/gaussians/ %%%%%
+
+\usepackage{amsmath} % for \dfrac
+\usepackage{tikz}
+\tikzset{>=latex} % for LaTeX arrow head
+\usepackage{pgfplots} % for the axis environment
+\usepackage{xcolor}
+\usepackage[outline]{contour} % halo around text
+\contourlength{1.2pt}
+\usetikzlibrary{positioning,calc}
+\usetikzlibrary{backgrounds}% required for 'inner frame sep'
+%\usepackage{adjustbox} % add whitespace (trim)
+
+% define gaussian pdf and cdf
+\pgfmathdeclarefunction{gauss}{3}{%
+  \pgfmathparse{1/(#3*sqrt(2*pi))*exp(-((#1-#2)^2)/(2*#3^2))}%
+}
+\pgfmathdeclarefunction{cdf}{3}{%
+  \pgfmathparse{1/(1+exp(-0.07056*((#1-#2)/#3)^3 - 1.5976*(#1-#2)/#3))}%
+}
+\pgfmathdeclarefunction{fq}{3}{%
+  \pgfmathparse{1/(sqrt(2*pi*#1))*exp(-(sqrt(#1)-#2/#3)^2/2)}%
+}
+\pgfmathdeclarefunction{fq0}{1}{%
+  \pgfmathparse{1/(sqrt(2*pi*#1))*exp(-#1/2))}%
+}
+
+\colorlet{mydarkblue}{blue!30!black}
+
+% to fill an area under function
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{patterns}
+\pgfplotsset{compat=1.12} % TikZ coordinates <-> axes coordinates
+% https://tex.stackexchange.com/questions/240642/add-vertical-line-of-equation-x-2-and-shade-a-region-in-graph-by-pgfplots
+
+% plot aspect ratio
+%\def\axisdefaultwidth{8cm}
+%\def\axisdefaultheight{6cm}
+
+% number of sample points
+\def\N{50}
+
+%%%%% End for https://tikz.net/gaussians/ %%%%%
+
+\setbeamertemplate{caption}[numbered]
+
+%new commands
+\newcommand{\der}[2]{\frac{d#1}{d#2}}
+\newcommand{\nder}[3]{\frac{d^#1 #2}{d #3 ^ #1}}
+\newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\npder}[3]{\frac{\partial ^#1 #2}{\partial #3^#1}}
+\newcommand{\sentencelist}{def}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\newcommand{\lined}{\overbar}
+\newcommand{\perm}[2]{{}^{#1}\!P_{#2}}
+\newcommand{\comb}[2]{{}^{#1}C_{#2}}
+\newcommand{\intall}{\int_{-\infty}^{\infty}}
+\newcommand{\Var}[1]{\text{Var}\left(#1\right)}
+\newcommand{\E}[1]{\text{E}\left(#1\right)}
+\newcommand{\define}{\equiv}
+\newcommand{\diff}[1]{\mathrm{d}#1}
+\newcommand{\empy}[1]{{\color{cadetblue}\texttt{#1}}}
+\newcommand{\empr}[1]{{\color{franklinblue}\textbf{#1}}}
+%https://tex.stackexchange.com/questions/192358/quickly-changing-all-the-file-paths-in-a-tex-file
+%\newcommand{\pathtopdf}{C:/Users/bkwei/OneDrive - Franklin University/Desktop/Math_601/Data/IMDB/Processed} - Not Tested!
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\theoremstyle{definition}
+
+\newcommand{\examplebox}[2]{
+\begin{tcolorbox}[colframe=darkcardinal,colback=boxgray,title=#1]
+\end{tcolorbox}}
+
+\newcommand{\eld}[1]{\frac{d}{dt}(\frac{\partial L}{\partial \dot #1}) - \frac{\partial L}{\partial #1}=0}
+\newcommand{\euler}[1]{\frac{\partial L}{\partial #1}-\frac{d}{dt}(\frac{\partial L}{\partial \dot #1})}
+\newcommand{\eulerg}[1]{\frac{\partial g}{\partial #1}-\frac{d}{dt}(\frac{\partial g}{\partial \dot #1})}
+\newcommand{\divg}[1]{\nabla\cdot #1}
+\newcommand{\prob}[1]{P(#1\vert I)}
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,%shadow=true,
+  rounded=true]{section}
+    \LARGE
+    \usebeamerfont{section}
+    %\usebeamercolor[fg]{section}\inserttitle %\insertsectionhead\par%
+    \setbeamercolor{section}{fg=white,bg=white}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\usetheme{Franklin} 
+\input{./style_files_franklin/my_beamer_defs.sty}
+\logo{\includegraphics[height=0.4in]{./style_files_franklin/FranklinUniversity_TM1.jpg}}
+
+\title{BUSA 603}
+\subtitle{Module 1 Supplement \\  A Deeper Dive on Customer Lifetime Value}
+
+\beamertemplatenavigationsymbolsempty
+
+\begin{document}
+
+\author[B. Weikel, Franklin University]{
+	\begin{tabular}{c} 
+	\Large
+	Brian Weikel\\
+    \footnotesize \href{mailto:brian.weikel@franklin.edu}{brian.weikel@franklin.edu}
+    \vspace{1ex}
+\end{tabular}
+\vspace{-4ex}}
+
+\institute{
+	\includegraphics[height=0.4in]{./style_files_franklin/FranklinUniversity_TM1.jpg}\\
+	Business Analytics\\
+	Franklin University}
+
+\date{Spring 2024}%{\today}
+
+\begin{noheadline}
+\begin{frame}[t]\maketitle\end{frame}
+\end{noheadline}
+
+\begin{frame}[t]{Customer Lifetime Value }
+We can use \empr{customer lifetime value} (LTV) to evaluate customer relationships much like \empr{net present value} (NPV) is used to evaluate investments and companies.\footnote{For time indexed by $t$, $R_t$ the time $t$ net cash flow, and $i$ the discount rate, time $t$ NPV is $\frac{R_t}{(1+i)^t}$.} \\
+\vspace{1.5ex}
+Recall from the Module 1 lecture notes that LTV is the net present value of profits linked to a specific customer once the customer has been acquired, after subtracting incremental costs associated with marketing, selling, production and servicing over the customer's lifetime. \\
+\vspace{1.5ex}
+Otherwise stated, the LTV of a customer is defined as the discounted sum of all future customer revenue streams minus product and servicing costs and remarketing costs (\cite{bendle2020}). Sometimes this is also called \textit{customer equity} by marketing professionals.
+\end{frame}
+
+\begin{frame}[t]{A LTV Example}
+LTV is applicable to products and services with repeat purchases or periodic contractual installments:  diapers, razor blades, plug-in air freshener refills, incontinence products, telecommunication services, media subscriptions, insurance, dental services, \ldots \\
+\vspace{1.5ex}
+Our first example is a general one in which we make assumptions about the behavior of a cohort of 100 new denture care products customers (at period 1).\footnote{Denture care product brand examples include \href{https://www.dentureliving.com/en-us}{Fixodent} and \href{https://www.polident.com/en-us/}{Polident}} For the data provided in {\color{franklinblue} Table 1} below, each period represents six months of customer purchase activity. In the first period, average spending is \$20 (a single or few product purchases). Over time we lose customers to others brands, but revenue per customer increases with age for several years. After 20 periods, 10 years, none of the customers are still buying.
+\end{frame}
+
+\begin{frame}[t]{A LTV Table}
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[htbp]
+  \footnotesize
+  \centering
+  \captionsetup{justification=centering}
+    \begin{tabular}{ccccc}
+    \multirow{2}*{\textbf{Period}} & \textbf{Number} & \textbf{Average Revenue} & \textbf{Margin} & \textbf{Total}  \\
+    & \textbf{Buying} & \textbf{Per Customer} & \textbf{Percent} & \textbf{Cash Flow} \\
+    \midrule
+    1 & 100  & \$20   & 50\%  & \$1,000   \\
+    2 &  60  & \$30   & 50\%  & \$900     \\
+    3 &  50  & \$40   & 50\%  & \$1,000   \\
+    4 &  45  & \$50   & 50\%  & \$1,125   \\
+    5 &  41  & \$60   & 50\%  & \$1,230   \\
+    6 &  37  & \$70   & 50\%  & \$1,295   \\
+    7 &  33  & \$80   & 50\%  & \$1,320   \\
+    8 &  29  & \$70   & 50\%  & \$1,015   \\
+    9 &  25  & \$60   & 50\%  & \$750     \\
+    10&  21  & \$55   & 50\%  & \$578     \\
+    \midrule
+    \end{tabular}%
+    % \caption{LTV Table}
+\end{table}%
+\end{frame}
+
+\begin{frame}[t]{LTV Table Continued}
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[htbp]
+  \footnotesize
+  \centering
+  \captionsetup{justification=centering}
+    \begin{tabular}{ccccc}
+    \multirow{2}*{\textbf{Period}} & \textbf{Number} & \textbf{Average Revenue} & \textbf{Margin} & \textbf{Total}   \\
+    & \textbf{Buying} & \textbf{Per Customer} & \textbf{Percent} & \textbf{Cash Flow} \\
+    \midrule
+    11 &  17  & \$55   &  50\%  & \$468 \\
+    12 &  14  & \$50   &  50\%  & \$350 \\
+    13 &  11  & \$45   &  50\%  & \$248 \\
+    14 &  9   & \$40   &  50\%  & \$180 \\
+    15 &  7   & \$40   &  50\%  & \$140 \\
+    16 &  5   & \$35   &  50\%  & \$88  \\
+    17 &  4   & \$30   &  50\%  & \$60  \\
+    18 &  3   & \$30   &  50\%  & \$45  \\
+    19 &  2   & \$25   &  50\%  & \$25  \\
+    20 &  1   & \$20   &  50\%  & \$10  \\
+    \midrule
+    \end{tabular}%
+     \caption{Denture Care LTV Table}
+  \label{tab:1}%
+\end{table}%
+\end{frame}
+
+\begin{frame}[t]{Calculating the NPV of the Cohort and Cohort LTV}
+NPV = \$1,000 + NPV(.04, \$900, \$1,000, \ldots, \$10 ) = \$9,682.  \\
+\vspace{1.5ex}
+In the above calculation we used a discount rate of 4\% (0.04) for each period. \\
+\vspace{1.5ex}
+The initial cash flow is not discounted. The formula above is what you will find in Excel for calculating NPV. The projected value of this cohort of 100 new customers is \$9,682. \\
+\vspace{1.5ex}
+Thus, LTV = \$9,682/100 = \$96.82. \\
+\vspace{1.5ex}
+This method of estimating LTV is the \empr{cohort and incubate method}. We start with a group of like customers acquired at the same time and track their future cash flows. Clearly this is an average. Note, there are no remarketing costs in this example.
+\end{frame}
+
+\begin{frame}[t]{Estimating Customer Lifetime Value With Models}
+In the above example we illustrated LTV with projected cash flows from a cohort of like customers. \\
+\vspace{1.5ex}
+In other situations it is possible to build a mathematical model of LTV based on a set of simplifying assumptions about future customer behavior. \\
+\vspace{1.5ex}
+We now describe perhaps the simplest of all LTV models: The simple model is one in which the first time the customer does not purchase, she is considered ``lost for good.'' Thus the model better applies to contract-based services such as mobile services, internet service providers, lawn services, and magazines. It does not apply to retailer catalog firms, however, where customers purchase intermittently. Also, if some of our denture product customers purchased in period 2, not in 3,and returned to the brand in period 4, the simple model would not apply.
+\end{frame}
+
+\begin{frame}[t]{Simple LTV Model Assumptions}
+Assumptions \\
+\vspace{1.5ex}
+\begin{itemize}
+\item $M$:  Contribution \underline{per period} from active customers in dollars. Contribution = Sales Price – Variable Costs.
+\item $R$:  Retention spending in dollars \underline{per period} per active customer.\footnote{Be careful not to double-count variable costs of retention spending if they have been included in the variable Variable Costs.}
+\item $r$:  Retention rate (i.e, fraction of current customers retained each period).
+\item $i$:  Discount rate per period.
+\end{itemize}
+Under these assumptions, 
+\begin{equation} \label{eqn:eqn1}
+\text{LTV} = (M - R) \times \bigg( \frac{1+i}{1+i-r} \bigg).
+\end{equation}
+
+\end{frame}
+
+\begin{frame}[t]{Expected Cash Flows}
+Expected Cash Flows
+\begin{itemize}
+  \item $t=1$:  $M-R$
+  \item $t=2$:  $r(M-R)$
+  \item $t=3$:  $r^2(M-R)$
+  \item $t=4$:  $r^3(M-R)$
+  \item Note for any integer $t > 0$, the expected cash flow for period $t$ is $r^{t-1}(M-R)$. 
+\end{itemize}
+The NPV of the cash flows is the LTV of the customer relationship. \\
+\vspace{1.5ex}
+This formula applies to a situation in which the company estimates the value of a newly acquired customer. This value might be used to limit the cost of acquiring a new customer.
+\end{frame}
+
+\begin{frame}[t]{Two Variations of the LTV Formula}
+\small
+\begin{enumerate}
+  \item The value of customers we anticipate acquiring and from whom we will receive an initial margin at the beginning of the customer relationship. Unlike other LTV formulas used, Equation (\ref{eqn:eqn1}) does \underline{not} include acquisition cost. Thus it can be used to evaluate how much one would spend to acquire these customers.
+  \item The value of (1) customers that we have already acquired but are subject to being lost before we receive another margin, (2) customers that we intend to acquire with a free trial (no initial margin and may not be retained), or (3) customers for whom the initial margin was discounted and included in the acquisition cost. It is probably not obvious, but the difference between the two is a single, foregone $(M - R)$. The LTV formula, Equation (\ref{eqn:eqn2}) below, is frequently referred to as ``LTV remaining.''\footnote{This formula was presented in the Module 1 Lecture Notes.}
+  \begin{equation} \label{eqn:eqn2}
+   \text{LTV}_\text{rem} = (M - R) \times \bigg( \frac{r}{1+i-r} \bigg).
+  \end{equation}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{Notes on LTV}
+\small
+\begin{itemize}
+\item Be sure to use equivalent periods for retention rates, margins, retention spending, and discount rates.
+\item Convert annual discount rates to monthly or vice versa as needed. 
+\begin{itemize}
+\item $\text{Effective rate for period} = (1 + \text{annual rate})^{(1 / \text{number of periods})} - 1$.
+  \item $\text{Monthly rate} = (1 + \text{annual rate})^{1/12} - 1.$
+  \item $\text{Quarterly rate} = (1 + \text{annual rate})^{1/4} - 1.$
+  \item $\text{Annual rate} = (1 + \text{monthly rate})^{12} - 1.$
+\end{itemize}
+\item Retention rate = 1 - attrition rate and vice versa. The attrition rate is sometimes referred to as the \empr{churn rate}.
+\item If customers pay monthly and have the option of canceling each month, use a monthly model. If they have an annual contract and pay monthly, it is slightly more complicated: use the NPV of the monthly payments in an annual model of retention.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Notes on LTV Continued}
+\small
+\begin{itemize}
+\item Use the time period in which ``retention happens'' for LTV analysis. Although we can use the above formulae to convert discount rates and retention rates from one period to another, the choice of which period to use to calculate LTV is not arbitrary.
+\begin{itemize}
+  \item The period used to calculate LTV must match the period when customers decide to remain or leave. If customers can churn at the end of each month, then use a monthly LTV calculation (converting annual retention rates and discount rates to their equivalent monthly rates, if necessary).
+  \item Hybrid models: It may be the case that customer payments and retention spending do not match the period with which customers churn. For example, customers may sign annual contracts with monthly payments. For these cases first discount the 12 monthly payments to find the annual present value equivalent for use in an annual LTV calculation. The assumption is that each successful annual renewal obligates the customer to 12 monthly payments. 
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Hybrid Model Example}
+If customers make monthly payments, but have annual contracts, use a hybrid LTV model. Below is a LTV example with monthly customer revenue and annual retention decisions. \\
+\vspace{1.5ex}
+Suppose a lawn and snowplowing service nets (revenues minus variable costs) \$100 a month from customers who sign annual contracts. The annual discount rate is 5\% and the annual retention rate is 80\%. What is  $\text{LTV}_{\text{rem}}$? \\
+\vspace{1.5ex}
+\underline{Solution}: \\
+\small
+\vspace{1.5ex}
+Firstly, we convert 5\% annual rate to a monthly rate of 0.4074\%. \\
+\vspace{1.5ex}
+ Secondly, the present value of 12 monthly cash flows, $\text{PV}_{\text{month}}$, is equal to  \$100 + NPV(0.04074,\$100,\$100,\ldots,\$100) = \$1,173.58. \\
+\vspace{1.5ex}
+ Finally, $\text{LTV}_{\text{rem}} = \text{PV}_{\text{month}} \times (0.8 / (1+0.05-0.8)) =$ \$3,755.45.
+\end{frame}
+
+\begin{frame}[t]{Cable Provider Example}
+A cable provider charges \$59.95 per month. Variable costs are \$12.50 per account per month. With marketing spending of \$18 per year, the attrition rate is (only) 1.5\% per month. At a monthly discount rate of 1\%, what is the LTV of a customer we intend to acquire? \\ 
+\vspace{1.5ex}
+\underline{Solution}: \\
+\vspace{1.5ex}
+Firstly, $M$ = \$59.95 - \$12.50 =  \$47.45. $R$ = \$18/12 = \$1.50. $r$ = 0.985. $d$ = 0.01. \\
+\vspace{1.5ex}
+Then $\text{LTV} = (M - R) \times ( \frac{1+i}{1+i-r} ) = \$45.95 \times 40.4 = $ \$1,856.38. 
+\end{frame}
+
+\begin{frame}[t]{Cable Provider Example Continued}
+\begin{itemize}
+\item The resulting figure of  \$1,856.38 is composed of two terms.
+\begin{itemize}
+  \item The net contribution per period is \$45.95.
+  \item The multiplier is 40.4.
+\end{itemize}
+\item The multiplier is a function of the retention rate and the discount rate. The relatively large retention rate produced the large multiplier of 40.4, leading to a LTV of \$1,856.38.
+\item While the cable provider only makes \$45.95 per period, the discounted value of the expected ``annuity'' of these payments total 40.4 times the per period amount.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{A Cable Provider Marketing Spend Proposal}
+Suppose the cable provider is considering cutting retention spending from \$18 to \$9 per year.  The firm expects the attrition rate will go up to 2.7\% per month. Should they do it? \\
+\vspace{1.5ex}
+\underline{Solution}:\\
+\vspace{1.5ex}
+To determine the financial viability of the proposal, we may recalculate LTV under the new assumptions. If the new LTV is larger, we should implement the proposal. Otherwise, we should not. \\
+\vspace{1.5ex}
+$\text{LTV} = (M - R) \times ( \frac{1+i}{1+i-r} ) = \$46.70 
+\times 37.027 = $ \$1,760.03.  Thus the firm should not implement the proposal.  
+ \end{frame}
+
+\begin{frame}[t]{A Cookie-of-the-Month Club LTV Calculation}
+A cookie-of-the-month club estimates that the LTV of their average current customer is \$125.
+If their annual attrition rate is 0.45 and their monthly retention spending equals \$2.75 per customer, what must be the monthly dollar contribution per customer? Assume a monthly discount rate of 0.5\% and a constant renewal rate. \\
+\vspace{1.5ex}
+\underline{Solution}:\\
+\vspace{1.5ex}
+For the formula $\text{LTV} = (M - R) \times ( \frac{1+i}{1+i-r} )$, we need to find $M$.  \\
+\vspace{1.5ex}
+Note $R$ = \$2.75,  $r$ = $(1-0.45)^{1/12}$ = 0.9514, and $i$ = 0.005.  Then $M$ = \$9.79. 
+\end{frame}
+
+\begin{frame}[t]{LTV for a Cruise-Ship Operator}
+\cite{berger2003} presents a real-world cohort and incubate method LTV application for a cruise-ship operator. We will examine data similar to that which they studied.\\
+\vspace{1.5ex}
+\begin{itemize}
+\item In year 1 there were 6,050 customers who took their first cruise with the cruise-ship operator.\footnote{These customers were randomly selected from all customers who were new-to-file in year 1.} These new-to-file (NTF) customers took 6,296 cruises in year 1. The average year 1 cohort cruise price was USD \$4,388.  The company's gross margin is 80\% of the price of a cruise.\footnote{Once a cruise ship has set sail there is negligible marginal cost for an additional passenger or two filling a room that would otherwise be empty since cruise ship operators schedule ships far in advance.}  
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{LTV for a Cruise-Ship Operator Continued}
+\begin{itemize}
+\item [] For year 1 NTF customers, remarketing was conducted later in the year after they returned from the first cruise.  Year 1 average remarketing cost per \underline{household} was \$12.  There are 1.7 customers per household. 
+\item In year 2 the year 1 NTF cohort of 6,050 customers took 786 cruises, where the average cruise price was \$5,067 and the present value (PV) of profits was $\frac{\$5,067 \times 0.8}{(1+0.1)} = \$3,685,$ when using the company's annual discount rate of 10\% is used.  The discount rate is also used to discount future marketing investments. \\
+\vspace{1.5ex} 
+Year 2 marketing costs per \underline{household} was \$24, where PV of costs were $\frac{\$24}{(1+0.1)}  =  \$21.82$.  
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{LTV for a Cruise-Ship Operator Continued}
+\begin{itemize}
+  \item Table \ref{tab:cruise1} contains complete cruise, revenue, gross margin, and aggregate PV of cash flow for years 1 and 2.  Table \ref{tab:cruise2} below contains complete remarketing cost and PV of remarketing cost for years 1 and 2. \\
+\end{itemize}
+\vspace{-1.0ex}
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[htbp]
+  \footnotesize
+  \centering
+  \captionsetup{justification=centering}
+    \begin{tabular}{cccccc}
+    \multirow{3}*{\textbf{Year}} 
+    & \textbf{Number}
+    & \textbf{Avg.} 
+    & \textbf{Avg. Gross}  
+    & \textbf{PV of Avg.} 
+    & \textbf{Aggregate}  \\
+    & \textbf{of} 
+    & \textbf{Price Per} 
+    & \textbf{Margin} 
+    & \textbf{Gross Margin} 
+    & \textbf{PV of} \\
+    & \textbf{Cruises} 
+    & \textbf{Cruise} 
+    & \textbf{Per Cruise} 
+    & \textbf{Per Cruise} 
+    & \textbf{Cash Flow} \\
+    \toprule
+    1 & 6,296 & \$4,388 & \$3,510 & \$3,510 & \$22,101,478 \\
+    2 &   786 & \$5,067 & \$4,054 & \$3,685 & \$2,896,481 \\
+    3 &   638 & \$5,691 & \cellcolor{yellow!25} & \cellcolor{yellow!25} & \cellcolor{yellow!25} \\
+    4 &   574 & \$5,778 & \cellcolor{yellow!25} & \cellcolor{yellow!25} & \cellcolor{yellow!25} \\
+    5 &   324 & \$6,335 & \cellcolor{yellow!25} & \cellcolor{yellow!25} & \cellcolor{yellow!25} \\
+    \bottomrule
+    \end{tabular}%
+     \caption{Incomplete Revenue, Gross Margin and Present Value of Cash Flow Table}
+  \label{tab:cruise1}%
+\end{table}%
+\end{frame}
+
+\begin{frame}[t]{LTV for a Cruise-Ship Operator Continued}
+\begin{itemize}
+  \item []  The highlighted empty cells in the table above and in the table below will be discussed shortly.
+\end{itemize}
+\vspace{-0.0ex}
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[htbp]
+  \footnotesize
+  \centering
+  \captionsetup{justification=centering}
+    \begin{tabular}{ccc}
+    \multirow{2}*{\textbf{Year}} 
+    & \textbf{Cost Per }
+    & \textbf{Present Value of }  \\
+    & \textbf{Household} 
+    & \textbf{Cost Per Household} \\
+    \toprule
+    1 & \$12  & \$12.00 \\
+    2 & \$24  & \$21.82 \\
+    3 & \$24  & \cellcolor{yellow!25} \\
+    4 & \$24  & \cellcolor{yellow!25} \\ 
+    5 & \$24  & \cellcolor{yellow!25} \\  
+    \bottomrule
+    \end{tabular}%
+     \caption{Incomplete Remarketing Cost Table}
+  \label{tab:cruise2}%
+\end{table}%
+\end{frame}
+
+\begin{frame}[t]{LTV for a Cruise-Ship Operator Continued}
+\begin{enumerate}
+  \item Populate the highlighted cells of Table \ref{tab:cruise1}.
+  \item Populate the highlighted cells of Table \ref{tab:cruise2}.
+  \item What is aggregate present value of cash flows for the 5 years?
+  \item What is aggregate present value of remarketing costs for the 5 years?
+  \item Using the 5 year horizon results, what is the LTV of a NTF customer?
+  \item The company is considering running a 30 second TV Super Bowl ad.  For the pod and pod spot where the ad would be executed, the cost would be \$7M.\footnote{For simplicity purposes, we are ignoring the creative and production cost of the ad.}  The ad is expected to produce an incremental 1,500 NTF customers.  Should the company air the ad?  Explain the reason for your answer.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{LTV for a Cruise-Ship Operator Continued}
+\underline{Solution}:\\
+\vspace{1.5ex}
+\begin{enumerate}
+  \item Table \ref{tab:cruise3} is the populated table. 
+\end{enumerate}
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[htbp]
+  \footnotesize
+  \centering
+  \captionsetup{justification=centering}
+    \begin{tabular}{cccccc}
+    \multirow{3}*{\textbf{Year}} 
+    & \textbf{Number}
+    & \textbf{Avg.} 
+    & \textbf{Avg. Gross}  
+    & \textbf{PV of Avg.} 
+    & \textbf{Aggregate}  \\
+    & \textbf{of} 
+    & \textbf{Price Per} 
+    & \textbf{Margin} 
+    & \textbf{Gross Margin} 
+    & \textbf{PV of} \\
+    & \textbf{Cruises} 
+    & \textbf{Cruise} 
+    & \textbf{Per Cruise} 
+    & \textbf{Per Cruise} 
+    & \textbf{Cash Flow} \\
+    \toprule
+    1 & 6,296 & \$4,388 & \$3,510 & \$3,510 & \$22,101,478 \\
+    2 &   786 & \$5,067 & \$4,054 & \$3,685 & \$2,896,481 \\
+    3 &   638 & \$5,691 & \cellcolor{yellow!25} \$4,553 & \cellcolor{yellow!25} \$3,763 
+    & \cellcolor{yellow!25} \$2,400,567 \\
+    4 &   574 & \$5,778 & \cellcolor{yellow!25} \$4,622 & \cellcolor{yellow!25} \$3,473 
+    & \cellcolor{yellow!25} \$1,993,432 \\
+    5 &   324 & \$6,335 & \cellcolor{yellow!25} \$5,068 &  \cellcolor{yellow!25} \$3,462 & 
+    \cellcolor{yellow!25} \$1,121,530 \\
+    \bottomrule
+    \end{tabular}%
+     \caption{Revenue, Gross Margin and Present Value of Cash Flow Table}
+  \label{tab:cruise3}%
+\end{table}%
+\end{frame}
+
+\begin{frame}[t]{LTV for a Cruise-Ship Operator Continued}
+\begin{enumerate}
+  \setcounter{enumi}{1}
+  \item Table \ref{tab:cruise4} is the populated table. 
+\end{enumerate}
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[htbp]
+  \footnotesize
+  \centering
+  \captionsetup{justification=centering}
+    \begin{tabular}{ccc}
+    \multirow{2}*{\textbf{Year}} 
+    & \textbf{Cost Per }
+    & \textbf{Present Value of }  \\
+    & \textbf{Household} 
+    & \textbf{Cost Per Household} \\
+    \toprule
+    1 & \$12  & \$12.00 \\
+    2 & \$24  & \$21.82 \\
+    3 & \$24  &  \cellcolor{yellow!25} \$19.83 \\
+    4 & \$24  &  \cellcolor{yellow!25} \$18.03 \\ 
+    5 & \$24  &  \cellcolor{yellow!25} \$16.39 \\  
+    \bottomrule
+    \end{tabular}%
+     \caption{Remarketing Cost Table}
+  \label{tab:cruise4}%
+\end{table}%
+\vspace{-2.0ex}
+\begin{enumerate}
+  \setcounter{enumi}{2}
+  \item Summing all values in the last column of Table \ref{tab:cruise3} yields \$30,513,489.
+  \item Summing all values in the last column of Table \ref{tab:cruise4} yields \$88.08.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{LTV for a Cruise-Ship Operator Continued}
+\begin{enumerate}
+  \setcounter{enumi}{4}
+  \item Dividing \$30,513,489 by 6,050 and then subtracting the value of \$88.08 divided by 1.7 yields \$4,992, which is the LTV for a NTF customer.
+  \item The expected acquisition cost is $\frac{\$7M}{1,500} = \$4,667$.  Since the cost of acquisition is less than the LTV of a NTF customer, the company should place the Super Bowl ad.  Note also that the ad may also produce incremental cruises of existing (i.e., not NTF) customers. 
+\end{enumerate}
+\end{frame}
+
+\section{References}
+
+\begin{frame}[t,allowframebreaks]
+%https://latex-beamer.com/faq/long-bibliographies-beamer/
+%https://github.com/jgm/pandoc/issues/2442
+\widowpenalties 1 10000
+\small
+\bibliography{../../Bibliography/list2}
+\bibliographystyle{apalike}
+\end{frame}
+
+\end{document}

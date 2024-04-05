@@ -1,0 +1,13 @@
+[1] "Education Data PCA Summary"
+
+Importance of components:
+
+                          PC1    PC2    PC3     PC4     PC5 
+Standard deviation     1.8503 1.5834 1.2165 0.76552 0.67744
+Proportion of Variance 0.3804 0.2786 0.1644 0.06511 0.05099 
+Cumulative Proportion  0.3804 0.6590 0.8234 0.88851 0.93950 
+
+                           PC6     PC7     PC8     PC9
+Standard deviation     0.57220 0.35894 0.28826 0.07184
+Proportion of Variance 0.03638 0.01432 0.00923 0.00057
+Cumulative Proportion  0.97588 0.99019 0.99943 1.00000

@@ -1,0 +1,4 @@
+[1] "Clusters Centroids"
+  km_true.cluster math_scr read_scr spend_1 spend_2 stud_teac
+1               1   242.64   225.64   13.40   65.46     12.29
+2               2   238.48   219.41    8.44   41.71     16.95

@@ -1,0 +1,7 @@
+                    Marriot  TrCovW   Duda PseudoT2
+Number_clusters           7    3.00 2.0000   2.0000
+Value_Index      7676950043 1167.61 1.1031  -3.1781
+
+                    Dunn Hubert SDindex Dindex    SDbw
+Number_clusters  11.0000      0  7.0000      0 12.0000
+Value_Index       0.3567      0  1.2566      0  0.2681

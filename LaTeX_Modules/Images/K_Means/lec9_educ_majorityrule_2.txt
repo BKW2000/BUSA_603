@@ -1,0 +1,7 @@
+                  TrCovW  TraceW Friedman  Beale Ratkowsky   
+Number_clusters   3.0000  3.0000  10.0000 2.0000    2.0000  
+Value_Index     797.7418 20.8688  24.4001 0.7336    0.4442 
+
+                 Dindex    SDbw    Ball
+Number_clusters       0 12.0000  3.0000
+Value_Index           0  0.1829 36.1927

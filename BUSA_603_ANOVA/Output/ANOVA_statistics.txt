@@ -1,0 +1,10 @@
+Analysis of Variance Table
+
+Response: gross_sales
+                Df  Sum Sq Mean Sq F value  Pr(>F)  
+window           1   61.49  61.493  4.0433 0.04789 *
+floorset         1   59.49  59.491  3.9117 0.05158 .
+window:floorset  1   25.55  25.554  1.6803 0.19881  
+Residuals       76 1155.84  15.208                  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

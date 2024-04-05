@@ -1,0 +1,31 @@
+Moderator Regression - National and Local TV Adult 18-54 TRPs and Billboards
+Controling for Seasonality and Trend 
+
+Call:
+lm(formula = y ~ x + z + xz + time_id + sin1 + sin2 + sin3 + 
+    cos1 + cos2 + cos3, data = df6)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.33301 -0.05067  0.00012  0.05064  0.30957 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  7.257e-01  1.155e-03 628.324  < 2e-16 ***
+x            1.454e-05  7.827e-06   1.857  0.06329 .  
+z            5.577e-03  3.040e-03   1.835  0.06656 .  
+xz           4.605e-05  2.112e-05   2.180  0.02923 *  
+time_id      1.518e-04  1.298e-05  11.698  < 2e-16 ***
+sin1        -2.549e-02  7.955e-04 -32.037  < 2e-16 ***
+sin2        -5.729e-04  5.052e-04  -1.134  0.25681    
+sin3         3.093e-03  4.476e-04   6.909 4.92e-12 ***
+cos1         8.052e-04  5.010e-04   1.607  0.10803    
+cos2         1.060e-02  4.420e-04  23.983  < 2e-16 ***
+cos3         1.225e-03  4.417e-04   2.774  0.00553 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.07501 on 57709 degrees of freedom
+Multiple R-squared:  0.08333,	Adjusted R-squared:  0.08317 
+F-statistic: 524.6 on 10 and 57709 DF,  p-value: < 2.2e-16
+

@@ -1,0 +1,22 @@
+Moderator Regression - National and Local TV Adult 18-54 TRPs and Billboards 
+
+Call:
+lm(formula = y ~ x + z + xz, data = df6)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.33219 -0.05200  0.00032  0.05209  0.30964 
+
+Coefficients:
+             Estimate Std. Error  t value Pr(>|t|)    
+(Intercept) 7.196e-01  4.921e-04 1462.266   <2e-16 ***
+x           1.896e-04  4.598e-06   41.232   <2e-16 ***
+z           2.705e-03  3.119e-03    0.867    0.386    
+xz          3.259e-05  2.164e-05    1.506    0.132    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.07708 on 57716 degrees of freedom
+Multiple R-squared:  0.0318,	Adjusted R-squared:  0.03175 
+F-statistic: 631.9 on 3 and 57716 DF,  p-value: < 2.2e-16
+

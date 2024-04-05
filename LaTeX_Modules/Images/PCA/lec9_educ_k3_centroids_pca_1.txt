@@ -1,0 +1,9 @@
+[1] "Clusters Centroids Using 3 PCs"
+  km_true.cluster math_scr read_scr spend_1 spend_2 stud_teac
+1               1   243.11   225.89   13.41   65.53     12.24
+2               2   238.85   219.95    9.24   45.91     15.44
+3               3   238.17   219.67    8.34   40.55     18.40 
+   shortage_1 shortage_2 shortage_3 shortage_4
+1       40.63       8.47       3.53       4.05
+2       18.75       3.40       0.55       1.45
+3       39.92       8.75       3.83       4.67
